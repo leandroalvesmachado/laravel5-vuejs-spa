@@ -1,7 +1,7 @@
 <template>
     <span>
         <header>
-            <app-navbar
+            <the-nav-bar
                 logo="Social"
                 url="#"
                 cor="green darken-1"
@@ -10,14 +10,28 @@
         <main>
             <div class="container">
                 <div class="row">
-                    <app-grid tamanho="4">Menu</app-grid>
-                    <app-grid tamanho="8">
+                    <base-grid tamanho="4">
+                        <card-menu>
+                            <div class="row valign-wrapper">
+                                <base-grid tamanho="4">
+                                    <img src="" alt="" class="circle">
+                                </base-grid>
+                                <base-grid tamanho="8">
+                                    <span class="black-text">
+                                        <h5>Leandro</h5>
+                                        Add circle
+                                    </span>
+                                </base-grid>
+                            </div>
+                        </card-menu>
+                    </base-grid>
+                    <base-grid tamanho="8">
                         <router-view />
-                    </app-grid>
+                    </base-grid>
                 </div>
             </div>
         </main>
-        <app-footer
+        <the-footer
             cor="green darken-1"
             logo="Social"
             descricao="Teste"
@@ -27,22 +41,24 @@
             <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
             <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
             <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-        </app-footer>
+        </the-footer>
     </span>
 </template>
 
 <script>
 
-import Navbar from '@/components/layouts/navbar';
-import Footer from '@/components/layouts/footer';
-import Grid from '@/components/layouts/grid';
+import TheNavBar from '@/components/layouts/TheNavBar';
+import TheFooter from '@/components/layouts/TheFooter';
+import BaseGrid from '@/components/layouts/BaseGrid';
+import CardMenu from '@/components/layouts/CardMenu';
 
 export default {
     name: "App",
     components: {
-        'app-navbar': Navbar,
-        'app-footer': Footer,
-        'app-grid': Grid
+        TheNavBar,
+        TheFooter,
+        BaseGrid,
+        CardMenu
     }
 };
 </script>

@@ -13,12 +13,12 @@
 
 <script>
 export default {
-    name: 'Navbar',
-    props: [
-        'logo',
-        'url',
-        'cor'
-    ],
+    name: 'TheNavbar',
+    props: {
+        logo: String,
+        url: String,
+        cor: String
+    },
     data () {
         return {
             msg: 'Welcome to Your Vue.js App'

@@ -24,13 +24,13 @@
 
 <script>
     export default {
-        name: 'Footer',
-        props: [
-            'cor',
-            'logo',
-            'descricao',
-            'ano'
-        ],
+        name: 'TheFooter',
+        props: {
+            cor: String,
+            logo: String,
+            descricao: String,
+            ano: String
+        },
         data () {
             return {
                 msg: 'Welcome to Your Vue.js App'
