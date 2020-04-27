@@ -3,30 +3,24 @@
         <header>
             <the-nav-bar
                 logo="Social"
-                url="#"
+                url="/"
                 cor="green darken-1"
-            />
+            >
+                <li><router-link to="/">Home</router-link></li>
+                <li><router-link to="/login">Entrar</router-link></li>
+                <li><router-link to="/cadastro">Cadastre-se</router-link></li>
+            </the-nav-bar>
         </header>
         <main>
             <div class="container">
                 <div class="row">
                     <base-grid tamanho="4">
                         <card-menu>
-                            <div class="row valign-wrapper">
-                                <base-grid tamanho="4">
-                                    <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle responsive-img">
-                                </base-grid>
-                                <base-grid tamanho="8">
-                                    <span class="black-text">
-                                        <h5>Leandro</h5>
-                                        Add circle
-                                    </span>
-                                </base-grid>
-                            </div>
+                            <slot name="menuesquerdo"></slot>
                         </card-menu>
                     </base-grid>
                     <base-grid tamanho="8">
-                        <slot></slot>
+                        <slot name="principal"></slot>
                     </base-grid>
                 </div>
             </div>

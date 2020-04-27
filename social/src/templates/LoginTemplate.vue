@@ -3,19 +3,24 @@
         <header>
             <the-nav-bar
                 logo="Social"
-                url="#"
+                url="/"
                 cor="green darken-1"
-            />
+            >
+                <li><router-link to="/">Home</router-link></li>
+                <li><router-link to="/login">Entrar</router-link></li>
+                <li><router-link to="/cadastro">Cadastre-se</router-link></li>
+            </the-nav-bar>
         </header>
         <main>
             <div class="container">
                 <div class="row">
-                    <base-grid tamanho="6">
+                    <base-grid tamanho="8">
                         <card-menu>
+                        <slot name="menuesquerdo"></slot>
                         </card-menu>
                     </base-grid>
-                    <base-grid tamanho="6">
-                        <slot></slot>
+                    <base-grid tamanho="4">
+                        <slot name="principal"></slot>
                     </base-grid>
                 </div>
             </div>

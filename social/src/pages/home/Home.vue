@@ -1,17 +1,32 @@
 <template>
     <site-template>
-        <publicar-conteudo />
-        <card-conteudo
-            perfil="https://materializecss.com/images/yuna.jpg"
-            nome="Leandro"
-            data="20/20/2020"
-        >
-            <card-detalhe
-                img="https://materializecss.com/images/sample-1.jpg"
-                titulo=""
-                texto="teste"
-            />
-        </card-conteudo>
+        <span slot="menuesquerdo">
+            <div class="row valign-wrapper">
+                <base-grid tamanho="4">
+                    <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle responsive-img">
+                </base-grid>
+                <base-grid tamanho="8">
+                    <span class="black-text">
+                        <h5>Leandro</h5>
+                        Add circle
+                    </span>
+                </base-grid>
+            </div>
+        </span>
+        <span slot="principal">
+            <publicar-conteudo />
+            <card-conteudo
+                perfil="https://materializecss.com/images/yuna.jpg"
+                nome="Leandro"
+                data="20/20/2020"
+            >
+                <card-detalhe
+                    img="https://materializecss.com/images/sample-1.jpg"
+                    titulo=""
+                    texto="teste"
+                />
+            </card-conteudo>
+        </span>
     </site-template>
 </template>
 
