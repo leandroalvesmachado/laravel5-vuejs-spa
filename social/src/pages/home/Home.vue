@@ -36,6 +36,7 @@ import SiteTemplate from '@/templates/SiteTemplate';
 import CardConteudo from '@/components/social/CardConteudo';
 import CardDetalhe from '@/components/social/CardDetalhe';
 import PublicarConteudo from '@/components/social/PublicarConteudo';
+import BaseGrid from '@/components/layouts/BaseGrid';
 
 export default {
     name: 'Home',
@@ -43,7 +44,8 @@ export default {
         SiteTemplate,
         CardConteudo,
         CardDetalhe,
-        PublicarConteudo
+        PublicarConteudo,
+        BaseGrid
     },
     data () {
         return {
