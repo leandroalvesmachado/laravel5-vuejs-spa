@@ -6,9 +6,10 @@
                 url="/"
                 cor="green darken-1"
             >
-                <li><router-link to="/">Home</router-link></li>
-                <li><router-link to="/login">Entrar</router-link></li>
-                <li><router-link to="/cadastro">Cadastre-se</router-link></li>
+                <li v-if="!usuario"><router-link to="/login">Entrar</router-link></li>
+                <li v-if="!usuario"><router-link to="/cadastro">Cadastre-se</router-link></li>
+                <li v-if="usuario"><router-link to="/perfil">{{ usuario.name }}</router-link></li>
+                <li v-if="usuario"><a @click="sair">Sair</a></li>
             </the-nav-bar>
         </header>
         <main>
@@ -53,6 +54,27 @@ export default {
         TheFooter,
         BaseGrid,
         CardMenu
+    },
+    data () {
+        return {
+            usuario: false
+        }
+    },
+    created() {
+        // quando o componente é criado ciclo de vida
+        let usuarioAux = sessionStorage.getItem('usuario');
+        if (usuarioAux) {
+            // pega a string e transforma em json
+            this.usuario = JSON.parse(usuarioAux);
+            this.$router.push('/');
+        }
+    },
+    methods: {
+        sair() {
+            sessionStorage.clear();
+            this.usuario = false;
+            this.$router.push('/login');
+        }
     }
 };
 </script>

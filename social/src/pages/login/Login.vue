@@ -39,6 +39,11 @@ export default {
                 console.log(response);
                 if (response.data.token) {
                     // login com sucesso
+                    // criando sessão
+                    // session storage, se o usuario fechar o navegador, perder a sessao
+                    // local storage, mesmo fechando, fica salvo
+                    sessionStorage.setItem('usuario', JSON.stringify(response.data));
+                    this.$router.push('/');
                 } else if (response.data.status == false) {
                     // login não existe
                     alert('Login inválido');
@@ -48,12 +53,13 @@ export default {
                     for (let erro of Object.values(response.data)) {
                         erros += erro + " ";
                     }
-                    
+
                     alert(erros);
                 }
             })
             .catch(e => {
                 console.log(e);
+                 alert('Erro, tente novamente mais tarde');
             });
         }
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\User;
 
 /*
@@ -46,7 +47,7 @@ Route::post('/login', function (Request $request) {
 
     $validacao = Validator::make($data, [
         'email' => 'required|string|email',
-        'password' => 'required|string|min:6'
+        'password' => 'required|string'
     ]);
 
     if ($validacao->fails()) {
@@ -70,4 +71,45 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth:api')->put('/perfil', function (Request $request) {
+    // usuario logado, auth:api valida  token
+    $user = $request->user();
+    $data = $request->all();
+
+    if (isset($data['password'])) {
+        $validacao = Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user['id'],
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
+        ]);
+
+        if ($validacao->fails()) {
+            return $validacao->errors();
+        }
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+    } else {
+        $validacao = Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user['id']
+        ]);
+
+        if ($validacao->fails()) {
+            return $validacao->errors();
+        }
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+    }
+
+    $user->save();
+
+    $user->token = $user->createToken($user->email)->accessToken;
+
+    return $user;
 });
