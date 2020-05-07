@@ -20,6 +20,11 @@
                         <card-menu>
                             <slot name="menuesquerdo"></slot>
                         </card-menu>
+                        <card-menu>
+                            <h3>Amigos</h3>
+                            <li>Leandro</li>
+                            <li>Gustavo</li>
+                        </card-menu>
                     </base-grid>
                     <base-grid tamanho="8">
                         <slot name="principal"></slot>

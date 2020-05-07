@@ -1,7 +1,7 @@
 <template>
     <site-template>
         <span slot="menuesquerdo">
-            <img src="https://www.designerd.com.br/wp-content/uploads/2013/06/criar-rede-social.png" alt="" class="responsive-img">
+            <img :src="usuario.imagem" alt="" class="responsive-img">
         </span>
         <span slot="principal">
             <h2>Perfil</h2>
@@ -10,7 +10,7 @@
             <div class="file-field input-field">
                 <div class="btn">
                     <span>Imagem</span>
-                    <input type="file">
+                    <input type="file" @change="salvaImagem">
                 </div>
                 <div class="file-path-wrapper">
                     <input type="text" class="file-path validate">
@@ -39,7 +39,8 @@ export default {
             name: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            imagem: ''
         }
     },
     created() {
@@ -54,11 +55,23 @@ export default {
         }
     },
     methods: {
+        salvaImagem(e) {
+            let arquivo = e.target.files || e.dataTransfer.files;
+
+            if (!arquivo.length) {
+                return;
+            }
+            
+            let reader = new FileReader();
+            reader.onloadend = (e) => { this.imagem = e.target.result; };
+            reader.readAsDataURL(arquivo[0]);
+        },
         perfil() {
             axios.put(`http://localhost:8000/api/perfil`, 
                 {
                     name: this.name,
                     email: this.email,
+                    imagem: this.imagem,
                     password: this.password,
                     password_confirmation: this.password_confirmation
                 },
@@ -68,8 +81,8 @@ export default {
             )
             .then(response => {
                 if (response.data.token) {
+                    this.usuario = response.data;
                     sessionStorage.setItem('usuario', JSON.stringify(response.data));
-                    console.log('atualziado');
                 } else {
                     // erros de validação
                     let erros = '';
@@ -82,7 +95,7 @@ export default {
             })
             .catch(e => {
                 console.log(e);
-                 alert('Erro, tente novamente mais tarde');
+                alert('Erro, tente novamente mais tarde');
             });
         }
     }

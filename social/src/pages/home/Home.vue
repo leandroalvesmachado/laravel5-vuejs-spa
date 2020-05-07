@@ -3,12 +3,11 @@
         <span slot="menuesquerdo">
             <div class="row valign-wrapper">
                 <base-grid tamanho="4">
-                    <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle responsive-img">
+                    <img :src="usuario.imagem" :alt="usuario.name" class="circle responsive-img">
                 </base-grid>
                 <base-grid tamanho="8">
                     <span class="black-text">
-                        <h5>Leandro</h5>
-                        Add circle
+                        <h5>{{ usuario.name }}</h5>
                     </span>
                 </base-grid>
             </div>
@@ -49,7 +48,16 @@ export default {
     },
     data () {
         return {
-            msg: 'Welcome to Your Vue.js App'
+            usuario: ''
+        }
+    },
+    created() {
+        // quando o componente é criado ciclo de vida
+        let usuarioAux = sessionStorage.getItem('usuario');
+
+        if (usuarioAux) {
+            // pega a string e transforma em json
+            this.usuario = JSON.parse(usuarioAux);
         }
     }
 }
