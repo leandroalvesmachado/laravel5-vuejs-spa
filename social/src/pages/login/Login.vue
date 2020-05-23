@@ -16,7 +16,6 @@
 <script>
 
 import LoginTemplate from '@/templates/LoginTemplate';
-import axios from 'axios';
 
 export default {
     name: 'Login',
@@ -31,30 +30,30 @@ export default {
     },
     methods: {
         login() {
-            axios.post(`http://localhost:8000/api/login`, {
+            this.$http.post(`${this.$urlApi}/login`, {
                 email: this.email,
                 password: this.password
             })
             .then(response => {
                 console.log(response);
-                if (response.data.token) {
+                if (response.data.status) {
                     // login com sucesso
                     // criando sessão
                     // session storage, se o usuario fechar o navegador, perder a sessao
                     // local storage, mesmo fechando, fica salvo
-                    sessionStorage.setItem('usuario', JSON.stringify(response.data));
+                    sessionStorage.setItem('usuario', JSON.stringify(response.data.usuario));
                     this.$router.push('/');
-                } else if (response.data.status == false) {
-                    // login não existe
-                    alert('Login inválido');
-                } else {
+                } else if (response.data.status == false && response.data.validacao) {
                     // erros de validação
                     let erros = '';
-                    for (let erro of Object.values(response.data)) {
+                    for (let erro of Object.values(response.data.erros)) {
                         erros += erro + " ";
                     }
 
                     alert(erros);
+                } else {
+                    // login não existe
+                    console.log('Login não existe');
                 }
             })
             .catch(e => {

@@ -48,7 +48,11 @@ class UsuarioController extends Controller
         ]);
 
         if ($validacao->fails()) {
-            return $validacao->errors();
+            return [
+                'status' => false,
+                'validacao' => true,
+                'erros' => $validacao->errors()
+            ];
         }
 
         $imagem = "/img/usuario.jpg";
@@ -64,7 +68,10 @@ class UsuarioController extends Controller
         $user->token = $user->createToken($user->email)->accessToken;
         $user->imagem = asset($user->imagem);
 
-        return $user;
+        return [
+            'status' => true,
+            'usuario' => $user
+        ];
     }
 
     /**
@@ -111,7 +118,11 @@ class UsuarioController extends Controller
             ]);
 
             if ($validacao->fails()) {
-                return $validacao->errors();
+                return [
+                    'status' => false,
+                    'validacao' => true,
+                    'erros' => $validacao->errors()
+                ];
             }
 
             $user->name = $data['name'];
@@ -124,7 +135,11 @@ class UsuarioController extends Controller
             ]);
 
             if ($validacao->fails()) {
-                return $validacao->errors();
+                return [
+                    'status' => false,
+                    'validacao' => true,
+                    'erros' => $validacao->errors()
+                ];
             }
 
             $user->name = $data['name'];
@@ -163,7 +178,11 @@ class UsuarioController extends Controller
             ], ['base64image' => 'Imagem inválida']);
 
             if ($validacao->fails()) {
-                return $validacao->errors();
+                return [
+                    'status' => false,
+                    'validacao' => true,
+                    'erros' => $validacao->errors()
+                ];
             }
 
             $time = time();
@@ -197,7 +216,10 @@ class UsuarioController extends Controller
         $user->imagem = asset($user->imagem);
         $user->token = $user->createToken($user->email)->accessToken;
 
-        return $user;
+        return [
+            'status' => true,
+            'usuario' => $user
+        ];
     }
 
     /**
@@ -221,7 +243,11 @@ class UsuarioController extends Controller
         ]);
 
         if ($validacao->fails()) {
-            return $validacao->errors();
+            return [
+                'status' => false,
+                'validacao' => true,
+                'erros' => $validacao->errors()
+            ];
         }
 
         // autentica no sistema
@@ -231,7 +257,10 @@ class UsuarioController extends Controller
             $user->token = $user->createToken($user->email)->accessToken;
             $user->imagem = asset($user->imagem);
 
-            return $user;
+            return [
+                'status' => true,
+                'usuario' => $user
+            ];
         }
         
         return [

@@ -26,7 +26,6 @@
 <script>
 
 import SiteTemplate from '@/templates/SiteTemplate';
-import axios from 'axios';
 
 export default {
     name: 'Perfil',
@@ -67,7 +66,7 @@ export default {
             reader.readAsDataURL(arquivo[0]);
         },
         perfil() {
-            axios.put(`http://localhost:8000/api/perfil`, 
+            this.$http.put(`${this.$urlApi}/perfil`, 
                 {
                     name: this.name,
                     email: this.email,
@@ -80,13 +79,13 @@ export default {
                 }
             )
             .then(response => {
-                if (response.data.token) {
-                    this.usuario = response.data;
-                    sessionStorage.setItem('usuario', JSON.stringify(response.data));
-                } else {
+                if (response.data.status) {
+                    this.usuario = response.data.usuario;
+                    sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
+                } else if (response.data.status == false && response.data.validacao) {
                     // erros de validação
                     let erros = '';
-                    for (let erro of Object.values(response.data)) {
+                    for (let erro of Object.values(response.data.erros)) {
                         erros += erro + " ";
                     }
 

@@ -22,6 +22,49 @@ Route::post('/login', 'UsuarioController@login');
 Route::middleware('auth:api')->get('/usuario','UsuarioController@show');
 Route::middleware('auth:api')->put('/perfil','UsuarioController@update');
 
+Route::get('/testes', function() {
+    // $user1 = App\User::find(1);
+    // $user2 = App\User::find(2);
+
+    // add conteudo
+    // $user1->conteudos()->create([
+            // 'titulo' => 'Conteudo',
+            // 'texto' => 'Aqui o texto',
+            // 'imagem' => 'url da imagem',
+            // 'link' => 'link',
+            // 'data' => '2018-05-10'
+    // ]);
+
+    // add amigos
+    // insere a ligacao se não existe
+    // se existir ele remove
+    // $user->amigos()->toggle($user2->id);
+    
+    // vincula os dois registros. sempre insere
+    // $user1->amigos()->attach($user2->id);
+
+    // remove todas as ligacoes
+    // $user1->amigos()->detach($user2->id);
+
+    // add curtidas
+    // $user1->curtidas()->toggle($conteudo->id);
+
+    // add comentario
+    // $user1->conteudos()->create([
+            // 'titulo' => 'Conteudo',
+            // 'texto' => 'Aqui o texto',
+            // 'imagem' => 'url da imagem',
+            // 'link' => 'link',
+            // 'data' => '2018-05-10'
+    // ]);
+
+    // $user1->comentarios()->create([
+    //     'conteudo_id' => $conteudo->id,
+    //     'texto' => 'texto teste',
+    //     'data' => date('Y-m-d')
+    // ]);
+});
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

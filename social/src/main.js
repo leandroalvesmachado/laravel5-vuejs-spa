@@ -3,13 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios';
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios
+Vue.prototype.$urlApi = 'http://localhost:8000/api';
+
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })
