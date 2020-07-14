@@ -21,8 +21,13 @@ Route::post('/cadastro', 'UsuarioController@store');
 Route::post('/login', 'UsuarioController@login');
 Route::middleware('auth:api')->get('/usuario','UsuarioController@show');
 Route::middleware('auth:api')->put('/perfil','UsuarioController@update');
+Route::middleware('auth:api')->post('/conteudo/adicionar','ConteudoController@adicionar');
+Route::middleware('auth:api')->get('/conteudo/lista','ConteudoController@lista');
 
 Route::get('/testes', function() {
+});
+
+// Route::get('/testes', function() {
     // $user1 = App\User::find(1);
     // $user2 = App\User::find(2);
 
@@ -63,7 +68,7 @@ Route::get('/testes', function() {
     //     'texto' => 'texto teste',
     //     'data' => date('Y-m-d')
     // ]);
-});
+// });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

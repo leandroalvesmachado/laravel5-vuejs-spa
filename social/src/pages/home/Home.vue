@@ -15,14 +15,16 @@
         <span slot="principal">
             <publicar-conteudo />
             <card-conteudo
-                perfil="https://materializecss.com/images/yuna.jpg"
-                nome="Leandro"
-                data="20/20/2020"
+                v-for="item in conteudos"
+                :key="item.id"
+                :perfil="item.user.imagem"
+                :nome="item.user.name"
+                :data="item.data"
             >
                 <card-detalhe
-                    img="https://materializecss.com/images/sample-1.jpg"
-                    titulo=""
-                    texto="teste"
+                    :img="item.imagem"
+                    :titulo="item.titulo"
+                    :texto="item.texto"
                 />
             </card-conteudo>
         </span>
@@ -48,16 +50,30 @@ export default {
     },
     data () {
         return {
-            usuario: ''
+            usuario: false,
+            conteudos: []
         }
     },
     created() {
         // quando o componente é criado ciclo de vida
-        let usuarioAux = sessionStorage.getItem('usuario');
+        let usuarioAux = this.$store.getters.getUsuario;
 
         if (usuarioAux) {
-            // pega a string e transforma em json
-            this.usuario = JSON.parse(usuarioAux);
+            this.usuario = this.$store.getters.getUsuario;
+            this.$http.get(`${this.$urlApi}/conteudo/lista`, 
+                {
+                    "headers": { "authorization": `Bearer ${this.$store.getters.getToken}` }
+                }
+            )
+            .then(response => {
+                if (response.data.status) {
+                    this.conteudos = response.data.conteudos.data;
+                }
+            })
+            .catch(e => {
+                console.log(e);
+                alert('Erro, tente novamente mais tarde');
+            });
         }
     }
 }

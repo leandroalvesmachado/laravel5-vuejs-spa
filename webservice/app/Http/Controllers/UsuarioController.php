@@ -66,7 +66,7 @@ class UsuarioController extends Controller
 
         // criando token com informação que não se repete
         $user->token = $user->createToken($user->email)->accessToken;
-        $user->imagem = asset($user->imagem);
+        // $user->imagem = asset($user->imagem);
 
         return [
             'status' => true,
@@ -198,8 +198,9 @@ class UsuarioController extends Controller
             }
 
             if ($user->imagem) {
-                if (file_exists($user->imagem)) {
-                    unlink($user->imagem);
+                $imgUser = str_replace(asset('/'), '', $user->imagem);
+                if (file_exists($imgUser)) {
+                    unlink($imgUser);
                 }
             }
 
@@ -213,7 +214,7 @@ class UsuarioController extends Controller
 
         $user->save();
 
-        $user->imagem = asset($user->imagem);
+        // $user->imagem = asset($user->imagem);
         $user->token = $user->createToken($user->email)->accessToken;
 
         return [
@@ -255,7 +256,7 @@ class UsuarioController extends Controller
             $user = auth()->user();
             // criando token com informação que não se repete
             $user->token = $user->createToken($user->email)->accessToken;
-            $user->imagem = asset($user->imagem);
+            // $user->imagem = asset($user->imagem);
 
             return [
                 'status' => true,

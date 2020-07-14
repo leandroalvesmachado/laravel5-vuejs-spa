@@ -47,6 +47,7 @@ export default {
                     // criando sessão
                     // session storage, se o usuario fechar o navegador, perder a sessao
                     // local storage, mesmo fechando, fica salvo
+                    this.$store.commit('setUsuario', response.data.usuario);
                     sessionStorage.setItem('usuario', JSON.stringify(response.data.usuario));
                     this.$router.push('/');
                 } else if (response.data.status == false && response.data.validacao) {

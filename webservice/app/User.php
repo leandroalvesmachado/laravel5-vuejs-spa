@@ -28,6 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getImagemAttribute($value)
+    {
+        return asset($value);
+    }
+
     public function comentarios()
     {
         return $this->hasMany('App\Comentario');

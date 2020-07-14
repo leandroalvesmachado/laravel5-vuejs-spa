@@ -44,11 +44,11 @@ export default {
     },
     created() {
         // quando o componente é criado ciclo de vida
-        let usuarioAux = sessionStorage.getItem('usuario');
+        let usuarioAux = this.$store.getters.getUsuario;
 
         if (usuarioAux) {
             // pega a string e transforma em json
-            this.usuario = JSON.parse(usuarioAux);
+            this.usuario = this.$store.getters.getUsuario;
             this.name = this.usuario.name;
             this.email = this.usuario.email;
         }
@@ -75,12 +75,13 @@ export default {
                     password_confirmation: this.password_confirmation
                 },
                 {
-                    "headers": { "authorization": `Bearer ${this.usuario.token}` }
+                    "headers": { "authorization": `Bearer ${this.$store.getters.getToken}` }
                 }
             )
             .then(response => {
                 if (response.data.status) {
                     this.usuario = response.data.usuario;
+                    this.$store.commit('setUsuario', response.data.usuario);
                     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
                 } else if (response.data.status == false && response.data.validacao) {
                     // erros de validação

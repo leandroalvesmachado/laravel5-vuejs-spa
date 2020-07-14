@@ -68,17 +68,18 @@ export default {
     },
     created() {
         // quando o componente é criado ciclo de vida
-        let usuarioAux = sessionStorage.getItem('usuario');
-        console.log(usuarioAux)
+        let usuarioAux = this.$store.getters.getUsuario;
+        console.log(usuarioAux);
         if (usuarioAux) {
             // pega a string e transforma em json
-            this.usuario = JSON.parse(usuarioAux);
+            this.usuario = this.$store.getters.getUsuario;
         } else {
             this.$router.push('/login');
         }
     },
     methods: {
         sair() {
+            this.$store.commit('setUsuario', null);
             sessionStorage.clear();
             this.usuario = false;
             this.$router.push('/login');
